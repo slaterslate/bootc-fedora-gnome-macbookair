@@ -1,0 +1,3 @@
+[customizations.installer.modules]
+enable = [
+  "org

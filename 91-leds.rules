@@ -1,0 +1,2 @@
+# User-writable keyboard backlight
+ACTION=="add", SUBSYSTEM=="leds", KERNEL=="smc

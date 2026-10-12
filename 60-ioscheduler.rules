@@ -1,0 +1,2 @@
+# I/O scheduler tuning for MacBook Air A1466
+ACTION=="add|change", K

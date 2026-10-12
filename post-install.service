@@ -1,0 +1,4 @@
+[Unit]
+Description=First-login Flatpak bootstrap
+After=graphical-session.target
+Requisite=graphical-session.target

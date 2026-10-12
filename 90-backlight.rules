@@ -1,0 +1,2 @@
+# User-writable screen backlight
+ACTION=="add", SUBSYSTEM=="backlight", RUN+

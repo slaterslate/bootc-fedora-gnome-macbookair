@@ -1,0 +1,2 @@
+# Prevent bcm5974 trackpad from entering USB autosuspend
+ACTION=="add", SUBSYSTEM=="us

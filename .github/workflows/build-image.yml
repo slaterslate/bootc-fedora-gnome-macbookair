@@ -1,0 +1,67 @@
+# =============================================================================
+# build-image.yml — Build and push the bootc container image
+# =============================================================================
+name: Build Container Image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Containerfile'
+      - 'build-scripts/**'
+      - 'packages.rpm'
+      - '*.conf'
+      - '*.sh'
+      - '*.service'
+      - '*.rules'
+      - 'tuned-macbook-profile/**'
+      - '.github/workflows/build-image.yml'
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  build:
+    name: Build Container Image
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Podman
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y podman
+
+      - name: Log in to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | \
+            podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Build container image
+        run: |
+          podman build \
+            --tag "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}" \
+            --tag "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" \
+            -f Containerfile .
+
+      - name: Push container image
+        run: |
+          podman push "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          podman push "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
+
+      - name: Image summary
+        run: |
+          echo "### Container Image Built" >> $GITHUB_STEP_SUMMARY
+          echo "- Tag: \`${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest\`" >> $GITHUB_STEP_SUMMARY
+          echo "- SHA: \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          podman images --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}' | \
+            grep bootc-fedora-gnome-macbookair >> $GITHUB_STEP_SUMMARY || true

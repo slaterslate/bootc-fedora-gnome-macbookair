@@ -1,0 +1,2 @@
+# Re-enable LID0 as wakeup source when lid opens
+ACTION=="change", SUBSYSTEM=="acpi", KERN

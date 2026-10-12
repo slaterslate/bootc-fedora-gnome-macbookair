@@ -56,7 +56,7 @@ jobs:
 
       - name: Pull container image
         run: |
-          podman pull "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          podman pull "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"
 
       - name: Create output directory
         run: mkdir -p ./output

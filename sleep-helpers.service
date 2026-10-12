@@ -6,4 +6,8 @@ StopWhenUnneeded=yes
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/local
+ExecStart=/usr/local/bin/sleep-helpers.sh pre
+ExecStop=/usr/local/bin/sleep-helpers.sh post
+
+[Install]
+WantedBy=sleep.target

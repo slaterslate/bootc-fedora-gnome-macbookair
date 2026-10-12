@@ -1,3 +1,10 @@
 [Unit]
 Description=Restart macbook-lighter after user.slice is thawed
-After=s
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/resume-lighter.sh post
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target

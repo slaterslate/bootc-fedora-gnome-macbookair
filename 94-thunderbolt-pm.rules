@@ -1,2 +1,3 @@
 # Thunderbolt power management for MacBook Air A1466
-ACTION=="add
+ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{power/control}="auto"
+ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{power/autosuspend_delay_ms}="5000"

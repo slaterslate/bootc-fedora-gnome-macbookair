@@ -1,2 +1,54 @@
 # RPM packages to install (one per line)
-# Fedora 45 base system
+# Fedora 45 base system for MacBook Air A1466
+
+# Desktop essentials
+gnome-terminal
+nautilus
+gnome-control-center
+gnome-tweaks
+gnome-extensions-app
+
+# MacBook hardware
+mbpfan
+coretemp
+
+# Power management
+tuned
+tuned-ppd
+powertop
+
+# Compression
+zram-generator
+
+# Utilities
+git
+curl
+wget
+vim-enhanced
+htop
+tmux
+
+# VA-API hardware video decode
+libva-intel-media-driver
+intel-media-driver
+
+# Fonts
+google-noto-sans-fonts
+google-noto-serif-fonts
+jetbrains-mono-fonts
+
+# Network
+NetworkManager-wifi
+wpa_supplicant
+
+# Bluetooth
+bluez
+bluez-tools
+
+# Audio
+pipewire
+pipewire-pulseaudio
+wireplumber
+
+# Camera
+cheese

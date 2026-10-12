@@ -1,2 +1,12 @@
 [Unit]
-Description=Dis
+Description=Disable spurious ACPI wakeup sources on MacBook
+Before=sleep.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c 'for src in XHC1 EHC1 EHC2; do grep -Eqw "$src.*\*enabled" /proc/acpi/wakeup 2>/dev/null && echo "$src" > /proc/acpi/wakeup || true; done'
+
+[Install]
+WantedBy=sleep.target

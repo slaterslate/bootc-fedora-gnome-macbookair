@@ -2,3 +2,11 @@
 Description=First-login Flatpak bootstrap
 After=graphical-session.target
 Requisite=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/post-install.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=graphical-session.target
